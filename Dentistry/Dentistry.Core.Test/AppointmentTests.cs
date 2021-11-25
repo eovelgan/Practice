@@ -1,22 +1,19 @@
-﻿// <copyright file="Program.cs" company="Вельганенко, Ольховская">
-// Copyright (c) Вельганенко, Ольховская 2021. Учебные материалы.
-// </copyright>
-
-namespace Demo
+﻿namespace Dentistry.Core.Test
 {
-    using System;
+    using NUnit.Framework;
     using Dentistry.Core;
+    using System;
 
     /// <summary>
-    /// Исполняемый файл.
+    /// Модульные тесты для класса <see cref="Service"/>.
     /// </summary>
-    internal class Program
+    [TestFixture]
+    public class AppointmentTests
     {
-        /// <summary>
-        /// Точка входа в программу.
-        /// </summary>
-        private static void Main()
+        [Test]
+        public void ToString_ValidData_Success()
         {
+            //arrange
             var service = new Service(1, "Первичный осмотр", 800);
             var specializing = new Specializing(1, "Ортодонт");
             var doctor = new Doctor(1, specializing, "89156548554", "Дулов", "Александр", "Владимирович");
@@ -24,10 +21,10 @@ namespace Demo
             var client = new Client(1, "89168230972", "г.Сергиев Посад", "5004 0008 5548 0965", "4619 249944", birthDate, "Гаврилов", "Андрей", "Сергеевич");
             DateTime appointmenthDate = new DateTime(2021, 11, 25, 13, 20, 0);
             var appointment = new Appointment(1, appointmenthDate, service, doctor, client);
-            Console.WriteLine(doctor);
-            Console.WriteLine(service);
-            Console.WriteLine(client);
-            Console.WriteLine(appointment);
+            //act
+            var result = appointment.ToString();
+            //assert
+            Assert.AreEqual("25.11.2021 13:20:00 Первичный осмотр 800 Гаврилов Андрей Сергеевич Дулов Александр Владимирович Ортодонт", result);
         }
     }
 }

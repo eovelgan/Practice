@@ -9,25 +9,31 @@
     /// </summary>
     public class Appointment
     {
+        private Service service;
+        private Doctor doctor;
+        private Client client;
+
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Appointment"/>.
         /// </summary>
         /// <param name="idAppointment"> Идентификатор приема.</param>
-        /// <param name="year"> Год приема.</param>
-        /// <param name="month"> Месяц приема.</param>
-        /// <param name="day"> День приема.</param>
-        /// <param name="hour"> Час приема.</param>
-        /// <param name="minute"> Минута приема.</param>
-        /// <param name="idService">Идентификатор услуги.</param>
-        /// <param name="idClient"> Идентификатор клиента.</param>
-        /// <param name="idDoctor">Идентификатор врача.</param>
-        public Appointment(int idAppointment, int year, int month, int day, int hour, int minute, int idService, int idClient, int idDoctor)
+        /// <param name="appointmentDate"> Дата и время приема.</param>
+        /// <param name="service"> Услуга. .</param>
+        /// <param name="doctor"> Врач.</param>
+        /// <param name="client"> Клиент.</param>
+        public Appointment(
+            int idAppointment,
+            DateTime appointmentDate,
+            Service service,
+            Doctor doctor,
+            Client client)
+
         {
             this.IdAppointment = idAppointment;
-            this.AppointmentDate = new DateTime(year, month, day, hour, minute, 0);
-            this.IdService = idService;
-            this.IdClient = idClient;
-            this.IdDoctor = idDoctor;
+            this.AppointmentDate = appointmentDate;
+            this.service = service;
+            this.doctor = doctor;
+            this.client = client;
         }
 
         /// <summary>
@@ -41,19 +47,55 @@
         public DateTime AppointmentDate { get; protected set; }
 
         /// <summary>
-        /// Идентификатор услуги.
+        /// Услуга.
         /// </summary>
-        public int IdService { get; protected set; }
+        public virtual Service Service
+        {
+            get => this.service;
+            protected set
+            {
+                if (this.service is null)
+                {
+                    throw new ArgumentNullException(nameof(service));
+                }
+
+                this.Service = this.service;
+            }
+        }
 
         /// <summary>
-        /// Идентификатор клиента.
+        /// Врач.
         /// </summary>
-        public int IdClient { get; protected set; }
+        public virtual Doctor Doctor
+        {
+            get => this.doctor;
+            protected set
+            {
+                if (this.doctor is null)
+                {
+                    throw new ArgumentNullException(nameof(doctor));
+                }
+
+                this.Doctor = this.doctor;
+            }
+        }
 
         /// <summary>
-        /// Идентификатор врача.
+        /// Клиент.
         /// </summary>
-        public int IdDoctor { get; protected set; }
+        public virtual Client Client
+        {
+            get => this.client;
+            protected set
+            {
+                if (this.client is null)
+                {
+                    throw new ArgumentNullException(nameof(client));
+                }
+
+                this.Client = this.client;
+            }
+        }
 
         /// <summary>
         /// Представление объекта прием в виде строки.
@@ -61,7 +103,7 @@
         /// <returns>Строковое представление приема.</returns>
         public override string ToString()
         {
-            return $"{this.AppointmentDate} {this.IdService} {this.IdClient} {this.IdDoctor}".Trim();
+            return $"{this.AppointmentDate} {this.Service} {this.Client.FullName} {this.Doctor.FullName} {this.Doctor.Specializing.Title}".Trim();
         }
     }
 }

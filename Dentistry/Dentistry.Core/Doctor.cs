@@ -7,23 +7,34 @@
     /// <summary>
     /// Доктор.
     /// </summary>
-    public class Doctor
+    public class Doctor : Person
     {
+        private Specializing specializing;
+
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Doctor"/>.
         /// </summary>
         /// <param name="idDoctor"> Идентификатор врача.</param>
+        /// <param name="specializing"> Специализация врача.</param>
+        /// <param name="telNum"> Номер телефона.</param>
         /// <param name="lastName"> Фамилия врача.</param>
-        /// <param name="firsttName"> Имя врача.</param>
+        /// <param name="firstName"> Имя врача.</param>
         /// <param name="middleName"> Отчество врача.</param>
-        /// <param name="position"> Должность врача.</param>
-        public Doctor(int idDoctor, string position, string lastName, string firsttName, string middleName = null)
+        public Doctor(
+            int idDoctor,
+            Specializing specializing,
+            string telNum,
+            string lastName,
+            string firstName,
+            string middleName = null)
+            : base (lastName, firstName, middleName, telNum)
         {
             this.IdDoctor = idDoctor;
-            this.Position = position ?? throw new ArgumentNullException(nameof(position));
-            this.LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
-            this.FirsttName = firsttName ?? throw new ArgumentNullException(nameof(firsttName));
+            this.specializing = specializing;
+            this.LastName = lastName;
+            this.FirstName = firstName;
             this.MiddleName = middleName;
+            this.TelNum = telNum;
         }
 
         /// <summary>
@@ -32,29 +43,21 @@
         public int IdDoctor { get; protected set; }
 
         /// <summary>
-        /// Должность врача.
+        /// Специализация врача.
         /// </summary>
-        public string Position { get; protected set; }
+        public virtual Specializing Specializing
+        {
+            get => this.specializing;
+            protected set
+            {
+                if (this.specializing is null)
+                {
+                    throw new ArgumentNullException(nameof(specializing));
+                }
 
-        /// <summary>
-        /// Фамилия врача.
-        /// </summary>
-        public string LastName { get; protected set; }
-
-        /// <summary>
-        /// Имя врача.
-        /// </summary>
-        public string FirsttName { get; protected set; }
-
-        /// <summary>
-        /// Отчество врача.
-        /// </summary>
-        public string MiddleName { get; protected set; }
-
-        /// <summary>
-        /// Полное имя.
-        /// </summary>
-        public string FullName => $"{this.LastName} {this.FirsttName} {this.MiddleName}".Trim();
+                this.Specializing = this.specializing;
+            }
+        }
 
         /// <summary>
         /// Представление объекта врач в виде строки.
@@ -62,7 +65,7 @@
         /// <returns>Строковое представление врача.</returns>
         public override string ToString()
         {
-            return $"{this.Position} {this.FullName}".Trim();
+            return $"{this.Specializing.Title} {this.FullName}".Trim();
         }
     }
 }

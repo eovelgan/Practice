@@ -20,13 +20,13 @@
         /// </exception>
         public Service(int idservice, string title, decimal price)
         {
-            if (price==null || title == null || title.Trim().Length == 0)
+            if (price < 0 || string.IsNullOrEmpty(title))
             {
                 throw new ArgumentNullException();
             }
 
             this.IdService = idservice;
-            this.Title = title;
+            this.Title = title.Trim();
             this.Price = price;
         }
 
