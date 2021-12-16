@@ -37,14 +37,23 @@
         }
 
         /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Appointment"/>.
+        /// </summary>
+        [Obsolete("For ORM only", true)]
+        protected Appointment()
+        {
+        }
+
+
+        /// <summary>
         /// Идентификатор приема.
         /// </summary>
-        public int IdAppointment { get; protected set; }
+        public virtual int IdAppointment { get; protected set; }
 
         /// <summary>
         /// Дата и время приема.
         /// </summary>
-        public DateTime AppointmentDate { get; protected set; }
+        public virtual DateTime AppointmentDate { get; protected set; }
 
         /// <summary>
         /// Услуга.
@@ -56,7 +65,7 @@
             {
                 if (this.service is null)
                 {
-                    throw new ArgumentNullException(nameof(service));
+                    throw new ArgumentNullException(nameof(this.service));
                 }
 
                 this.Service = this.service;
@@ -73,7 +82,7 @@
             {
                 if (this.doctor is null)
                 {
-                    throw new ArgumentNullException(nameof(doctor));
+                    throw new ArgumentNullException(nameof(this.doctor));
                 }
 
                 this.Doctor = this.doctor;
@@ -90,7 +99,7 @@
             {
                 if (this.client is null)
                 {
-                    throw new ArgumentNullException(nameof(client));
+                    throw new ArgumentNullException(nameof(this.client));
                 }
 
                 this.Client = this.client;

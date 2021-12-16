@@ -31,19 +31,27 @@
         }
 
         /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Service"/>.
+        /// </summary>
+        [Obsolete("For ORM only", true)]
+        protected Service()
+        {
+        }
+
+        /// <summary>
         /// Идентификатор услуги.
         /// </summary>
-        public int IdService { get; protected set; }
+        public virtual int IdService { get; protected set; }
 
         /// <summary>
         /// Название услуги.
         /// </summary>
-        public string Title { get; protected set; }
+        public virtual string Title { get; protected set; }
 
         /// <summary>
         /// Цена услуги.
         /// </summary>
-        public decimal Price { get; protected set; }
+        public virtual decimal Price { get; protected set; }
 
         /// <summary>
         /// Представление объекта услуга в виде строки.

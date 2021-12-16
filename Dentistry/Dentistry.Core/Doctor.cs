@@ -27,7 +27,7 @@
             string lastName,
             string firstName,
             string middleName = null)
-            : base (lastName, firstName, middleName, telNum)
+            : base (idDoctor,lastName, firstName, middleName, telNum)
         {
             this.IdDoctor = idDoctor;
             this.specializing = specializing;
@@ -38,9 +38,17 @@
         }
 
         /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Doctor"/>.
+        /// </summary>
+        [Obsolete("For ORM only", true)]
+        protected Doctor()
+        {
+        }
+
+        /// <summary>
         /// Идентификатор врача.
         /// </summary>
-        public int IdDoctor { get; protected set; }
+        public virtual int IdDoctor { get; protected set; }
 
         /// <summary>
         /// Специализация врача.
@@ -52,7 +60,7 @@
             {
                 if (this.specializing is null)
                 {
-                    throw new ArgumentNullException(nameof(specializing));
+                    throw new ArgumentNullException(nameof(this.specializing));
                 }
 
                 this.Specializing = this.specializing;

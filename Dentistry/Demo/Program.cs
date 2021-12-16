@@ -5,6 +5,8 @@
 namespace Demo
 {
     using System;
+    using DataAccessLayer;
+    using DataAccessLayer.ORM;
     using Dentistry.Core;
 
     /// <summary>
@@ -24,6 +26,11 @@ namespace Demo
             var client = new Client(1, "89168230972", "г.Сергиев Посад", "5004 0008 5548 0965", "4619 249944", birthDate, "Гаврилов", "Андрей", "Сергеевич");
             DateTime appointmenthDate = new DateTime(2021, 11, 25, 13, 20, 0);
             var appointment = new Appointment(1, appointmenthDate, service, doctor, client);
+           
+            var settings = new Settings();
+            settings.AddDatabaseServer(@"LAPTOP-14PAJF0H");
+            settings.AddDatabaseName("Dentistry");
+
             Console.WriteLine(doctor);
             Console.WriteLine(service);
             Console.WriteLine(client);
