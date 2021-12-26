@@ -13,17 +13,16 @@
         /// </summary>
         public DoctorMap()
         {
-            this.Schema("dbo");
             this.Table("Doctors");
-            this.Id(x => x.IdDoctor).GeneratedBy.Guid();
+            this.Id(x => x.IdDoctor);
 
-            this.Map(x => x.Specializing);
             this.Map(x => x.TelNum).Length(11);
             this.Map(x => x.FirstName).Length(255);
             this.Map(x => x.LastName).Length(255);
             this.Map(x => x.MiddleName).Length(255);
 
             this.References(x => x.Specializing);
+            this.HasMany(x => x.Appointments).Not.Inverse().Cascade.Delete();
         }
     }
 }

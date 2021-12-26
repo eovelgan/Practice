@@ -9,31 +9,23 @@
     /// </summary>
     public class Appointment
     {
-        private Service service;
-        private Doctor doctor;
-        private Client client;
+    //    private ServiceName service;
+    //    private Doctor doctor;
+    //    private Client client;
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Appointment"/>.
         /// </summary>
         /// <param name="idAppointment"> Идентификатор приема.</param>
         /// <param name="appointmentDate"> Дата и время приема.</param>
-        /// <param name="service"> Услуга. .</param>
-        /// <param name="doctor"> Врач.</param>
-        /// <param name="client"> Клиент.</param>
         public Appointment(
             int idAppointment,
-            DateTime appointmentDate,
-            Service service,
-            Doctor doctor,
-            Client client)
+            DateTime appointmentDate
+            )
 
         {
             this.IdAppointment = idAppointment;
             this.AppointmentDate = appointmentDate;
-            this.service = service;
-            this.doctor = doctor;
-            this.client = client;
         }
 
         /// <summary>
@@ -58,52 +50,49 @@
         /// <summary>
         /// Услуга.
         /// </summary>
-        public virtual Service Service
-        {
-            get => this.service;
-            protected set
-            {
-                if (this.service is null)
-                {
-                    throw new ArgumentNullException(nameof(this.service));
-                }
-
-                this.Service = this.service;
-            }
-        }
+        public virtual ServiceName ServiceName { get; protected set; }
 
         /// <summary>
         /// Врач.
         /// </summary>
-        public virtual Doctor Doctor
-        {
-            get => this.doctor;
-            protected set
-            {
-                if (this.doctor is null)
-                {
-                    throw new ArgumentNullException(nameof(this.doctor));
-                }
-
-                this.Doctor = this.doctor;
-            }
-        }
+        public virtual Doctor Doctor { get; protected set; }
 
         /// <summary>
         /// Клиент.
         /// </summary>
-        public virtual Client Client
-        {
-            get => this.client;
-            protected set
-            {
-                if (this.client is null)
-                {
-                    throw new ArgumentNullException(nameof(this.client));
-                }
+        public virtual Client Client { get; protected set; }
 
-                this.Client = this.client;
-            }
+        public virtual bool AddAppToDoctor(Doctor doctor)
+        {
+            this.Doctor?.Appointments.Remove(this);
+
+            this.Doctor = doctor ?? throw new ArgumentNullException(nameof(doctor));
+
+            this.Doctor = doctor;
+
+            return this.Doctor.Appointments.Add(this);
+        }
+
+        public virtual bool AddAppToClient(Client client)
+        {
+            this.Client?.Appointments.Remove(this);
+
+            this.Client = client ?? throw new ArgumentNullException(nameof(client));
+
+            this.Client = client;
+
+            return this.Client.Appointments.Add(this);
+        }
+
+        public virtual bool AddAppToService(ServiceName service)
+        {
+            this.ServiceName?.Appointments.Remove(this);
+
+            this.ServiceName = service ?? throw new ArgumentNullException(nameof(service));
+
+            this.ServiceName = service;
+
+            return this.ServiceName.Appointments.Add(this);
         }
 
         /// <summary>
@@ -112,7 +101,7 @@
         /// <returns>Строковое представление приема.</returns>
         public override string ToString()
         {
-            return $"{this.AppointmentDate} {this.Service} {this.Client.FullName} {this.Doctor.FullName} {this.Doctor.Specializing.Title}".Trim();
+            return $"{this.AppointmentDate}".Trim();
         }
     }
 }

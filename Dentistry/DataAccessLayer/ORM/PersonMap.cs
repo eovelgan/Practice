@@ -13,14 +13,14 @@
         /// </summary>
         public PersonMap()
         {
-            this.Schema("dbo");
             this.Table("Persons");
-            this.Id(x => x.Id).GeneratedBy.Guid();
+            this.Id(x => x.Id);
 
             this.Map(x => x.FirstName).Length(255);
             this.Map(x => x.LastName).Length(255);
             this.Map(x => x.MiddleName).Length(255);
             this.Map(x => x.TelNum).Length(11);
+
         }
     }
 }

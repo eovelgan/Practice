@@ -7,7 +7,7 @@
     /// <summary>
     /// Услуга.
     /// </summary>
-    public class Service
+    public class ServiceName
     {
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Service"/>.
@@ -18,7 +18,7 @@
         /// <exception cref="ArgumentNullException">
         /// В случае если <paramref name="title"/> <see langword="null"/> или пустая срока <see cref="string.Empty"/>.
         /// </exception>
-        public Service(int idservice, string title, decimal price)
+        public ServiceName(int idservice, string title, decimal price)
         {
             if (price < 0 || string.IsNullOrEmpty(title))
             {
@@ -34,7 +34,7 @@
         /// Инициализирует новый экземпляр класса <see cref="Service"/>.
         /// </summary>
         [Obsolete("For ORM only", true)]
-        protected Service()
+        protected ServiceName()
         {
         }
 
@@ -52,6 +52,11 @@
         /// Цена услуги.
         /// </summary>
         public virtual decimal Price { get; protected set; }
+
+        /// <summary>
+        /// Множество приемов.
+        /// </summary>
+        public virtual ISet<Appointment> Appointments { get; protected set; } = new HashSet<Appointment>();
 
         /// <summary>
         /// Представление объекта услуга в виде строки.

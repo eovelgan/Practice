@@ -1,5 +1,5 @@
-// <copyright file="ServiseTests.cs" company="Вельганенко, Ольховская">
-// Copyright (c) Вельганенко, Ольховская 2021. Учебные материалы.
+// <copyright file="ServiceTests.cs" company="Вельганенко, Ольховская, Павлов">
+// Copyright (c) Вельганенко, Ольховская, Павлов 2021. Учебные материалы.
 // </copyright>
 
 namespace Dentistry.Core.Test
@@ -11,16 +11,18 @@ namespace Dentistry.Core.Test
     /// Модульные тесты для класса <see cref="Service"/>.
     /// </summary>
     [TestFixture]
-    public class ServiseTests
+    public class ServiceTests
     {
         [Test]
         public void ToString_ValidData_Success()
         {
-            //arrange
-            var service = new Service(1, "Первичный осмотр", 800);
-            //act
+            // arrange
+            var service = new ServiceName(1, "Первичный осмотр", 800);
+
+            // act
             var result = service.ToString();
-            //assert
+
+            // assert
             Assert.AreEqual("Первичный осмотр 800", result);
         }
     }

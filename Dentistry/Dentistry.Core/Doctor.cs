@@ -9,20 +9,18 @@
     /// </summary>
     public class Doctor : Person
     {
-        private Specializing specializing;
+     //   private Specializing specializing;
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Doctor"/>.
         /// </summary>
         /// <param name="idDoctor"> Идентификатор врача.</param>
-        /// <param name="specializing"> Специализация врача.</param>
         /// <param name="telNum"> Номер телефона.</param>
         /// <param name="lastName"> Фамилия врача.</param>
         /// <param name="firstName"> Имя врача.</param>
         /// <param name="middleName"> Отчество врача.</param>
         public Doctor(
             int idDoctor,
-            Specializing specializing,
             string telNum,
             string lastName,
             string firstName,
@@ -30,7 +28,6 @@
             : base (idDoctor,lastName, firstName, middleName, telNum)
         {
             this.IdDoctor = idDoctor;
-            this.specializing = specializing;
             this.LastName = lastName;
             this.FirstName = firstName;
             this.MiddleName = middleName;
@@ -54,18 +51,27 @@
         /// Специализация врача.
         /// </summary>
         public virtual Specializing Specializing
-        {
-            get => this.specializing;
-            protected set
-            {
-                if (this.specializing is null)
-                {
-                    throw new ArgumentNullException(nameof(this.specializing));
-                }
-
-                this.Specializing = this.specializing;
-            }
+        {get; protected set;
         }
+
+        /// <summary>
+        /// Добавить доктора в специализацию.
+        /// </summary>
+        public virtual bool AddDoctorToSpec(Specializing specializing)
+        {
+            this.Specializing?.Doctors.Remove(this);
+
+            this.Specializing = specializing ?? throw new ArgumentNullException(nameof(specializing));
+
+            this.Specializing = specializing;
+
+            return this.Specializing.Doctors.Add(this);
+        }
+
+        /// <summary>
+        /// Множество приемов.
+        /// </summary>
+        public virtual ISet<Appointment> Appointments { get; protected set; } = new HashSet<Appointment>();
 
         /// <summary>
         /// Представление объекта врач в виде строки.
@@ -73,7 +79,7 @@
         /// <returns>Строковое представление врача.</returns>
         public override string ToString()
         {
-            return $"{this.Specializing.Title} {this.FullName}".Trim();
+            return $"{this.FullName}".Trim();
         }
     }
 }

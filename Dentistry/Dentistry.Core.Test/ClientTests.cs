@@ -4,9 +4,8 @@
     using Dentistry.Core;
     using System;
 
-
     /// <summary>
-    /// Модульные тесты для класса <see cref="Specializing"/>.
+    /// Модульные тесты для класса <see cref="Client"/>.
     /// </summary>
     [TestFixture]
     public class ClientTests

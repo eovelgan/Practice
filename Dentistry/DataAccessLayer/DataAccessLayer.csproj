@@ -4,17 +4,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Repository\" />
-  </ItemGroup>
-
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(SolutionDir)_stylecop\develop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="$(SolutionDir)_stylecop\stylecop.json" Link="_stylecop\stylecop.json"/>
-    <AdditionalFiles Include="$(SolutionDir)_stylecop\develop.rulset" Link="_stylecop\develop.rulset"/>
+    <AdditionalFiles Include="$(SolutionDir)_stylecop\stylecop.json" Link="_stylecop\stylecop.json" />
+    <AdditionalFiles Include="$(SolutionDir)_stylecop\develop.rulset" Link="_stylecop\develop.rulset" />
   </ItemGroup>
   
   
@@ -25,6 +21,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
     </ItemGroup>
 
 

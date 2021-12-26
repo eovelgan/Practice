@@ -79,6 +79,11 @@
         public virtual DateTime BirthDate { get; protected set; }
 
         /// <summary>
+        /// Множество приемов.
+        /// </summary>
+        public virtual ISet<Appointment> Appointments { get; protected set; } = new HashSet<Appointment>();
+
+        /// <summary>
         /// Представление объекта клиент в виде строки.
         /// </summary>
         /// <returns>Строковое представление клиента.</returns>

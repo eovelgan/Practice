@@ -42,5 +42,15 @@
         /// Наименование должности.
         /// </summary>
         public virtual string Title { get; protected set; }
+
+        /// <summary>
+        /// Множество докторов.
+        /// </summary>
+        public virtual ISet<Doctor> Doctors { get; protected set; } = new HashSet<Doctor>();
+
+        public override string ToString()
+        {
+            return $"{this.Title}".Trim();
+        }
     }
 }

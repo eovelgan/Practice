@@ -13,9 +13,8 @@
         /// </summary>
         public ClientMap()
         {
-            this.Schema("dbo");
             this.Table("Clients");
-            this.Id(x => x.IdClient).GeneratedBy.Guid();
+            this.Id(x => x.IdClient);
 
             this.Map(x => x.TelNum).Length(11);
             this.Map(x => x.Location).Length(255);
@@ -26,6 +25,7 @@
             this.Map(x => x.LastName).Length(255);
             this.Map(x => x.MiddleName).Length(255);
 
+            this.HasMany(x => x.Appointments).Not.Inverse().Cascade.Delete();
         }
     }
 }

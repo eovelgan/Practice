@@ -13,14 +13,14 @@
         /// </summary>
         public SpecializingMap()
         {
-            this.Schema("dbo");
 
             this.Table("Specializings");
 
-            this.Id(x => x.IdSpecializing).GeneratedBy.Guid();
+            this.Id(x => x.IdSpecializing);
 
             this.Map(x => x.Title).Length(255);
 
+            this.HasMany(x => x.Doctors).Not.Inverse().Cascade.Delete();
         }
     }
 }
