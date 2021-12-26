@@ -31,7 +31,7 @@
             string lastName,
             string firstName,
             string middleName = null)
-            : base(lastName, firstName, middleName, telNum)
+            : base(idClient, lastName, firstName, middleName, telNum)
 
         {
             this.IdClient = idClient;
@@ -46,29 +46,42 @@
         }
 
         /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Client"/>.
+        /// </summary>
+        [Obsolete("For ORM only", true)]
+        protected Client()
+        {
+        }
+
+        /// <summary>
         /// Идентификатор клиента.
         /// </summary>
-        public int IdClient { get; protected set; }
+        public virtual int IdClient { get; protected set; }
 
         /// <summary>
         /// Место жительства.
         /// </summary>
-        public string Location { get; protected set; }
+        public virtual string Location { get; protected set; }
 
         /// <summary>
         /// Номер медицинского полиса.
         /// </summary>
-        public string MedPolNum { get; protected set; }
+        public virtual string MedPolNum { get; protected set; }
 
         /// <summary>
         /// Серия и номер паспорта.
         /// </summary>
-        public string Passport { get; protected set; }
+        public virtual string Passport { get; protected set; }
 
         /// <summary>
         /// Дата рождения клиента.
         /// </summary>
-        public DateTime BirthDate { get; protected set; }
+        public virtual DateTime BirthDate { get; protected set; }
+
+        /// <summary>
+        /// Множество приемов.
+        /// </summary>
+        public virtual ISet<Appointment> Appointments { get; protected set; } = new HashSet<Appointment>();
 
         /// <summary>
         /// Представление объекта клиент в виде строки.

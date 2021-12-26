@@ -26,13 +26,31 @@
         }
 
         /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Specializing"/>.
+        /// </summary>
+        [Obsolete("For ORM only", true)]
+        protected Specializing()
+        {
+        }
+
+        /// <summary>
         /// Идентификатор специализации.
         /// </summary>
-        public int IdSpecializing { get; protected set; }
+        public virtual int IdSpecializing { get; protected set; }
 
         /// <summary>
         /// Наименование должности.
         /// </summary>
-        public string Title { get; protected set; }
+        public virtual string Title { get; protected set; }
+
+        /// <summary>
+        /// Множество докторов.
+        /// </summary>
+        public virtual ISet<Doctor> Doctors { get; protected set; } = new HashSet<Doctor>();
+
+        public override string ToString()
+        {
+            return $"{this.Title}".Trim();
+        }
     }
 }

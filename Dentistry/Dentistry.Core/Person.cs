@@ -16,8 +16,9 @@
         /// <param name="firstName"> Имя.</param>
         /// <param name="middleName"> Отчетство.</param>
         /// <param name="telNum"> Номер телефона.</param>
-        public Person(string telNum, string lastName, string firstName, string middleName = null)
+        public Person(int id, string telNum, string lastName, string firstName, string middleName = null)
         {
+            this.Id = id;
            this.LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
            this.FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
            this.MiddleName = middleName;
@@ -25,29 +26,42 @@
         }
 
         /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Person"/>.
+        /// </summary>
+        [Obsolete("For ORM only", true)]
+        protected Person()
+        {
+        }
+
+        /// <summary>
+        /// Идентификатор.
+        /// </summary>
+        public virtual int Id { get; protected set; }
+
+        /// <summary>
         /// Фамилия.
         /// </summary>
-        public string LastName { get; protected set; }
+        public virtual string LastName { get; protected set; }
 
         /// <summary>
         /// Имя.
         /// </summary>
-        public string FirstName { get; protected set; }
+        public virtual string FirstName { get; protected set; }
 
         /// <summary>
         /// Отчество.
         /// </summary>
-        public string MiddleName { get; protected set; }
+        public virtual string MiddleName { get; protected set; }
 
         /// <summary>
         /// Номер телефона.
         /// </summary>
-        public string TelNum { get; protected set; }
+        public virtual string TelNum { get; protected set; }
 
         /// <summary>
         /// Полное имя.
         /// </summary>
-        public string FullName => this.MiddleName != null
+        public virtual string FullName => this.MiddleName != null
             ? $"{this.LastName} {this.FirstName} {this.MiddleName}".Trim()
             : $"{this.LastName} {this.FirstName}".Trim();
     }
